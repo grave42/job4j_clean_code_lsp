@@ -8,25 +8,43 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-   /*  добавьте реализацию*/
-        return  false;
+        Optional<ItemInfo> parentItemOptional = findItem(parentName);
+        if (parentItemOptional.isPresent()) {
+            MenuItem parent = parentItemOptional.get().menuItem;
+            MenuItem child = new SimpleMenuItem(childName, actionDelegate);
+            parent.getChildren().add(child);
+            return true;
+        } else {
+            MenuItem rootItem = new SimpleMenuItem(childName, actionDelegate);
+            rootElements.add(rootItem);
+            return true;
+        }
     }
 
-    @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        /*  добавьте реализацию*/
-        return null;
+        Optional<ItemInfo> itemOptional = findItem(itemName);
+        return itemOptional.map(itemInfo -> new MenuItemInfo(itemInfo.menuItem, itemInfo.number));
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        /*  добавьте реализацию*/
-        return null;
+        List<ItemInfo> allItems = new ArrayList<>();
+        DFSIterator dfsIterator = new DFSIterator();
+        while (dfsIterator.hasNext()) {
+            allItems.add(dfsIterator.next());
+        }
+        return allItems.stream().map(itemInfo -> new MenuItemInfo(itemInfo.menuItem, itemInfo.number)).iterator();
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        /*  добавьте реализацию*/
-        return null;
+        DFSIterator iterator = new DFSIterator();
+        while (iterator.hasNext()) {
+            ItemInfo itemInfo = iterator.next();
+            if (itemInfo.menuItem.getName().equals(name)) {
+                return Optional.of(itemInfo);
+            }
+        }
+        return Optional.empty();
     }
 
     private static class SimpleMenuItem implements MenuItem {
