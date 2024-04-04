@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class TodoApp {
 
-    public static Menu menu = new SimpleMenu();
+    public static final Menu MENU = new SimpleMenu();
     public static final ActionDelegate DEFAULT_ACTION = () -> System.out.println("Some action");
 
     public static void main(String[] args) {
@@ -35,22 +35,22 @@ public class TodoApp {
                     System.out.println("Введите название корневого элемента:");
                     String response = scanner.nextLine();
                     rootEl = response;
-                    menu.add(Menu.ROOT, response, DEFAULT_ACTION);
+                    MENU.add(Menu.ROOT, response, DEFAULT_ACTION);
                     break;
                 case 2:
                     System.out.println("Введите название дочернего элемента:");
                     String response2 = scanner.nextLine();
-                    menu.add(rootEl, response2, DEFAULT_ACTION);
+                    MENU.add(rootEl, response2, DEFAULT_ACTION);
                     break;
                 case 3:
                     System.out.println("Введите имя пункта меню для действия:");
                     String response3 = scanner.nextLine();
-                    ActionDelegate doAction = menu.select(response3).get().getActionDelegate();
+                    ActionDelegate doAction = MENU.select(response3).get().getActionDelegate();
                     doAction.delegate();
                     break;
                 case 4:
                     System.out.println("Меню");
-                    printer.print(menu);
+                    printer.print(MENU);
                     break;
                 case 5:
                     System.out.println("До свидания!");

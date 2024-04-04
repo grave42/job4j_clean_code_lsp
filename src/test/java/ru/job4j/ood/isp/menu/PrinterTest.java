@@ -36,11 +36,11 @@ class PrinterTest {
         menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
         Printer pr = new Printer();
         pr.print(menu);
-        String expectedOutput = "--1.Сходить в магазин" + System.lineSeparator() +
-                "----1.1.Купить продукты" + System.lineSeparator() +
-                "------1.1.1.Купить хлеб" + System.lineSeparator() +
-                "------1.1.2.Купить молоко" + System.lineSeparator() +
-                "--2.Покормить собаку" + System.lineSeparator();
+        String expectedOutput = "--1.Сходить в магазин" + System.lineSeparator()
+                + "----1.1.Купить продукты" + System.lineSeparator()
+                + "------1.1.1.Купить хлеб" + System.lineSeparator()
+                + "------1.1.2.Купить молоко" + System.lineSeparator()
+                + "--2.Покормить собаку" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 }
